@@ -46,7 +46,7 @@ dependencies {
 
 bukkit {
     main = "de.nicklasmatzulla.lptac.LPTaC"
-    name = "LPTC"
+    name = "LPTaC"
     version = project.version.toString()
     apiVersion = "1.19"
     depend = listOf("LuckPerms")
