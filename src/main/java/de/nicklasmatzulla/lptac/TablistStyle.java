@@ -39,8 +39,8 @@ public class TablistStyle {
         final String name = parentGroup.getName();
         final String prefix = luckPermsUtil.getPrefix(parentGroup);
         final NamedTextColor color = luckPermsUtil.getColor(parentGroup);
-        final int weight = luckPermsUtil.getWeight(parentGroup);
-        final String teamName = (100 - weight) + name;
+        final int weight = 100 - luckPermsUtil.getWeight(parentGroup);
+        final String teamName = (weight < 10 ? "00" + weight : (weight < 100 ? "0" + weight : weight)) + name;
 
         if (prefix == null || color == null) {
             return;
