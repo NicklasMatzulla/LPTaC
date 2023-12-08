@@ -21,6 +21,7 @@ import de.nicklasmatzulla.lptac.listener.AsyncChatListener;
 import de.nicklasmatzulla.lptac.listener.NodeMutateListener;
 import de.nicklasmatzulla.lptac.listener.PlayerJoinListener;
 import de.nicklasmatzulla.lptac.util.LuckPermsUtil;
+import de.nicklasmatzulla.lptac.util.Metrics;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -43,6 +44,7 @@ public class LPTaC extends JavaPlugin {
         pluginManager.registerEvents(new AsyncChatListener(), this);
         pluginManager.registerEvents(new PlayerJoinListener(), this);
         new NodeMutateListener(this);
+        new Metrics(this, 20466);
     }
 
     @Override
