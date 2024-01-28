@@ -27,6 +27,7 @@ public class PlayerQuitListener implements Listener {
     @EventHandler
     public void onPlayerQuitEvent(@NotNull final PlayerQuitEvent event) {
         TablistStyle.remove(event.getPlayer());
+        TablistStyle.refreshHeaderFooter();
     }
 
 }

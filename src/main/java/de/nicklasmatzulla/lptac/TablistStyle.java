@@ -16,7 +16,9 @@
 
 package de.nicklasmatzulla.lptac;
 
+import de.nicklasmatzulla.lptac.config.MessagesConfiguration;
 import de.nicklasmatzulla.lptac.util.LuckPermsUtil;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.luckperms.api.model.group.Group;
@@ -28,6 +30,16 @@ import org.bukkit.scoreboard.Team;
 import org.jetbrains.annotations.NotNull;
 
 public class TablistStyle {
+
+    public static void refreshHeaderFooter() {
+        final MessagesConfiguration messagesConfiguration = MessagesConfiguration.getInstance();
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            final Component header = messagesConfiguration.getTablistHeader(player);
+            final Component footer = messagesConfiguration.getTablistFooter(player);
+            player.sendPlayerListHeader(header);
+            player.sendPlayerListFooter(footer);
+        });
+    }
 
     @SuppressWarnings("DataFlowIssue")
     public static void refresh(@NotNull final Player player) {

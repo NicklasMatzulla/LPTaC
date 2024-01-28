@@ -18,14 +18,20 @@ package de.nicklasmatzulla.lptac.config;
 
 import de.nicklasmatzulla.lptac.LPTaC;
 import lombok.Getter;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class MessagesConfiguration {
 
@@ -50,6 +56,40 @@ public class MessagesConfiguration {
         this.CHAT_FORMAT = this.configuration.getString("chat.format");
     }
 
+    public Component getTablistHeader(final @NotNull Player player) {
+        return getComponent(player, "tablist.header");
+    }
+
+    public Component getTablistFooter(final @NotNull Player player) {
+        return getComponent(player, "tablist.footer");
+    }
+
+    public Component getComponent(final @NotNull Player player, final @NotNull String key) {
+        final TextComponent.Builder builder = Component.text();
+        final List<String> headerLines = this.configuration.getStringList(key);
+        for (int i = 0; i < headerLines.size(); i++) {
+            String line = headerLines.get(i);
+            line = replaceVariables(player, line);
+            final Component component = MiniMessage.miniMessage().deserialize(line);
+            builder.append(component);
+            if (i < headerLines.size()-1) {
+                builder.appendNewline();
+            }
+        }
+        return builder.build();
+    }
+
+    private String replaceVariables(final @NotNull Player player, final @NotNull String input) {
+        final int viewablePlayerCount = Bukkit.getOnlinePlayers().stream()
+                .filter(player::canSee)
+                .toList()
+                .size();
+        return input
+                .replace("<player_name>", player.getName())
+                .replace("<online_players>", String.valueOf(viewablePlayerCount))
+                .replace("<max_players>", String.valueOf(Bukkit.getMaxPlayers()));
+    }
+
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void load() {
         final File configurationFile = new File(this.plugin.getDataFolder(), "messages.yml");
@@ -62,7 +102,7 @@ public class MessagesConfiguration {
         try {
             this.configuration.load(configurationFile);
         } catch (IOException | InvalidConfigurationException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }

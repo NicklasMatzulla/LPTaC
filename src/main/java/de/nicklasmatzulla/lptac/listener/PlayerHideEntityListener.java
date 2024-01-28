@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Nicklas Matzulla
+ * Copyright 2024 Nicklas Matzulla
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,20 +17,20 @@
 package de.nicklasmatzulla.lptac.listener;
 
 import de.nicklasmatzulla.lptac.TablistStyle;
-import de.nicklasmatzulla.lptac.config.MessagesConfiguration;
-import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerHideEntityEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class PlayerJoinListener implements Listener {
+public class PlayerHideEntityListener implements Listener {
 
+    @SuppressWarnings("UnstableApiUsage")
     @EventHandler
-    public void onPlayerJoinEvent(@NotNull final PlayerJoinEvent event) {
-        TablistStyle.refresh(event.getPlayer());
-        TablistStyle.refreshHeaderFooter();
+    public void onPlayerHideEntityEvent(final @NotNull PlayerHideEntityEvent event) {
+        if (event.getEntity() instanceof Player) {
+            TablistStyle.refreshHeaderFooter();
+        }
     }
+
 }

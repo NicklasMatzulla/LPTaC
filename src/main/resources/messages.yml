@@ -2,8 +2,19 @@ chat:
   # Set the format of the chat
   #
   # The following custom patterns can be used:
-  # <playerName> - Name of the player
+  # <player_name> - Name of the player
   # <groupPrefix> - Prefix of the player's group
   # <groupColor> - Color of the player's group
   # <message> - Written message
   format: "<dark_gray>» <groupPrefix><groupColor><playerName> <dark_gray>× <GRAY><message>"
+
+tablist:
+  # Supported placeholders:
+  # <player_name>
+  # <online_players>
+  # <max_players>
+  header:
+    - "<gradient:aqua:blue>Hello, <player_name>!</gradient>"
+    - "<gray>Online players: <green><online_players><gray>/<red><max_players>"
+  footer:
+    - "<gray>Have fun!"
