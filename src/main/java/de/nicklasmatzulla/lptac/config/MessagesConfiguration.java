@@ -48,12 +48,16 @@ public class MessagesConfiguration {
     @Nullable
     public final String CHAT_FORMAT;
 
+    @Getter
+    private final boolean headerFooterEnabled;
+
     public MessagesConfiguration(@NotNull final LPTaC plugin) {
         MessagesConfiguration.instance = this;
         this.plugin = plugin;
         load();
 
         this.CHAT_FORMAT = this.configuration.getString("chat.format");
+        this.headerFooterEnabled = this.configuration.getBoolean("tablist.enableHeaderFooter", true);
     }
 
     public Component getTablistHeader(final @NotNull Player player) {

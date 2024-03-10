@@ -33,6 +33,9 @@ public class TablistStyle {
 
     public static void refreshHeaderFooter() {
         final MessagesConfiguration messagesConfiguration = MessagesConfiguration.getInstance();
+        if (!messagesConfiguration.isHeaderFooterEnabled()) {
+            return;
+        }
         Bukkit.getOnlinePlayers().forEach(player -> {
             final Component header = messagesConfiguration.getTablistHeader(player);
             final Component footer = messagesConfiguration.getTablistFooter(player);

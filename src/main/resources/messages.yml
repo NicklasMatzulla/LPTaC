@@ -9,6 +9,7 @@ chat:
   format: "<dark_gray>» <groupPrefix><groupColor><playerName> <dark_gray>× <GRAY><message>"
 
 tablist:
+  enableHeaderFooter: true
   # Supported placeholders:
   # <player_name>
   # <online_players>
